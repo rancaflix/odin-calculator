@@ -3,6 +3,9 @@ let memoryValue = '';
 let operatorValue = '';
 
 function afterOperate(){
+    if (displayNumber.length > 29) {
+        displayNumber = Math.round(displayNumber * 100) / 100
+    }
     displayNumber.innerHTML = memoryValue;
     displayValue = '';
 }
@@ -143,7 +146,7 @@ decimalButton.addEventListener("click", function(){
 function next(){
     displayValue = '';
     displayNumber.innerHTML = displayValue
-}
+};
 
 //operators event listeners
 addButton.addEventListener("click", function(){
@@ -199,3 +202,118 @@ equalButton.addEventListener("click", function(){
     }
 
 });
+
+// keyboard listener onkeydown
+window.addEventListener("keydown", function(event) {
+    let key = event.key;
+    
+    switch (key) {
+      case "0":
+        displayValue += "0";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "1":
+        displayValue += "1";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "2":
+        displayValue += "2";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "3":
+        displayValue += "3";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "4":
+        displayValue += "4";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "5":
+        displayValue += "5";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "6":
+        displayValue += "6";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "7":
+        displayValue += "7";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "8":
+        displayValue += "8";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "9":
+        displayValue += "9";
+        displayNumber.innerHTML = displayValue;
+        break;
+      case "+":
+        if (!operatorValue == ''){
+            operate(memoryValue, displayValue, operatorValue);
+            operatorValue = '+';
+        }
+        else if (operatorValue == ''){
+            operatorValue = '+';
+            memoryValue = displayValue;
+            next();
+        };
+        break;
+      case "-":
+        if (!operatorValue == ''){
+            operate(memoryValue, displayValue, operatorValue);
+            operatorValue = '-'
+        }
+        else if (operatorValue == ''){
+            operatorValue = '-';
+            memoryValue = displayValue;
+            next();
+        };
+        break;
+      case "*":
+        if (!operatorValue == ''){
+            operate(memoryValue, displayValue, operatorValue);
+            operatorValue = '*';
+        }
+        else if (operatorValue == ''){
+            operatorValue = '*';
+            memoryValue = displayValue;
+            next();
+        };
+        break;
+      case "/":
+        if (!operatorValue == ''){
+            operate(memoryValue, displayValue, operatorValue);
+            operatorValue = '/'
+        }
+        else if (operatorValue == ''){
+            operatorValue = '/';
+            memoryValue = displayValue;
+            next();
+        };
+        break;
+        case "Backspace":
+        case "Delete":
+            displayValue = displayValue.substring(0, displayValue.length - 1);
+            displayNumber.innerHTML = displayValue;
+            break;
+        case "Enter":
+            if (!operatorValue == '' && !memoryValue == '' && !displayValue == ''){
+                operate(memoryValue, displayValue, operatorValue);
+            operatorValue = '';
+            displayValue = memoryValue;
+            displayNumber.innerHTML = displayValue
+            }
+            break;
+        case ".":
+            if (displayValue == ''){
+                displayValue += "0.";
+                displayNumber.innerHTML = displayValue 
+             }
+             else if (!displayValue.includes('.')){
+             displayValue += ".";
+             displayNumber.innerHTML = displayValue
+             }
+            break;
+    }
+  }); 
